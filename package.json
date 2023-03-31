@@ -1,0 +1,28 @@
+{
+  "version": "1.0.2",
+  "keywords": [
+    "textlintrule"
+  ],
+  "main": "lib/index.js",
+  "files": [
+    "lib/",
+    "src/"
+  ],
+  "scripts": {
+    "test": "textlint-scripts test",
+    "build": "textlint-scripts build",
+    "prepublish": "npm run --if-present build"
+  },
+  "devDependencies": {
+    "@textlint/types": "^13.3.1",
+    "textlint-scripts": "^13.3.1",
+    "textlint-tester": "^13.3.1"
+  },
+  "name": "textlint-rule-chunk-size",
+  "directories": {
+    "test": "test"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
