@@ -9,22 +9,26 @@ export default function (context, options = {}) {
   const delimiter = options.delimiter || `page: `;
 
   return {
-    [Syntax.Str](node) {
+    [Syntax.Document](node) {
       // "Str" node
       const text = getSource(node); // Get text
-      console.log(chunkSize, delimiter, text);
-      const regex = new RegExp(
-        `(?<=${delimiter})[^(${delimiter})]{${chunkSize},}(${delimiter})`,
-        "g"
-      );
+      console.log("text: ", text.length);
+      // console.log(chunkSize, delimiter, text);
+      const regex = new RegExp(`${delimiter}`, "gm");
       const matches = text.matchAll(regex);
+      let last = 0;
+
       for (const match of matches) {
-        const index = match.index ?? 0;
-        const matchRange = [index, index + match[0].length];
-        const ruleError = new RuleError("Found Error.", {
-          padding: locator.range(matchRange),
-        });
-        report(node, ruleError);
+        if (match.index - last > chunkSize) {
+          console.log("ERROR: ", match.index, last, delimiter.length);
+          const index = match.index ?? 0;
+          const matchRange = [last + delimiter.length, index];
+          const ruleError = new RuleError("Found Error.", {
+            padding: locator.range(matchRange),
+          });
+          report(node, ruleError);
+        }
+        last = match.index ?? 0;
       }
     },
   };
