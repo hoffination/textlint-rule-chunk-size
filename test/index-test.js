@@ -81,34 +81,9 @@ tester.run("chunk size rule", rule, {
       errors: [
         {
           message: "Found Error.",
+          range: [6, 1263],
         },
       ],
     },
   ],
 });
-
-// tester.run("chunk size rule", rule, {
-//   valid: [
-//     // no problem
-//     "p: 123\np: 345",
-//     {
-//       text: "it should be ok",
-//       options: {
-//         chunkSize: 10,
-//         delimiter: "p: ",
-//       },
-//     },
-//   ],
-//   invalid: [
-//     // single match
-//     {
-//       text: "p: 123456789012\np: 345",
-//       errors: [
-//         {
-//           message: "Found Error.",
-//           range: [6, 25],
-//         },
-//       ],
-//     },
-//   ],
-// });
